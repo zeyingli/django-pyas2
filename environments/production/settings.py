@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'production.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': env('DATABASE_HOST', default='127.0.0.1')
+        'HOST': env('DATABASE_HOST', default='127.0.0.1'),
         'NAME': env('DATABASE_NAME', default='pyas2'),
         'USER': env('DATABASE_USERNAME', default='root'),
         'PASSWORD': env('DATABASE_PASSWORD', default='root'),
