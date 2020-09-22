@@ -1,0 +1,18 @@
+# Ignore File Lists
+./.github/
+./docs/
+./.coveragerc
+./.gitignore
+./.travis.yml
+./AUTHORS.md
+./CHANGELOG.rst
+./docker-compose.yml
+./Dockerfile
+./LICENSE
+./Makefile
+./MANIFEST.in
+./pytest.ini
+./README.rst
+./tox.ini
+./.git
+./.cache

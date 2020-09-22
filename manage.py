@@ -2,13 +2,15 @@
 import os
 import sys
 
-SUPPORTED_ENVS = ('test', 'example')
+SUPPORTED_ENVS = ('local', 'testing', 'production')
 
 SETTINGS_MODULES = {
-    'example': 'example.settings'
+    'local': 'environments.local.settings',
+    'testing': 'environments.testing.settings',
+    'production': 'environments.production.settings'
 }
 
-ENV = os.environ.get('ENV', 'example')
+ENV = os.environ.get('APP_ENV', 'local')
 ENV = ENV.lower()
 
 if ENV not in SUPPORTED_ENVS:

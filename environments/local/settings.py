@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '$-k4qd0ywk_81e9+#+2y72frhw@p)bhnxr!upva1y=6ol6%9n$'
+SECRET_KEY = env('APP_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'example.urls'
+ROOT_URLCONF = 'environments.local.urls'
 # APPEND_SLASH = False
 
 TEMPLATES = [
@@ -74,7 +74,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'example.wsgi.application'
+WSGI_APPLICATION = 'environments.local.wsgi.application'
 
 
 # Database
@@ -125,11 +125,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+MESSAGE_ROOT = '/messages/'
 
-if env.bool("USE_S3_FILE_STORAGE", False):
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
-    AWS_LOCATION = 'pyas2_data'
-    AWS_DEFAULT_ACL = None
+# PyAS2 Configuration
+
+PYAS2 = {
+    'DATA_DIR' : MESSAGE_ROOT,
+    'MAX_RETRIES': 3,
+    'MDN_URL' : env('MDN_URL'),
+    'ASYNC_MDN_WAIT' : 30,
+    'MAX_ARCH_DAYS' : 3,
+}

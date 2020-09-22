@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+    as2:
+        build: ./
+        env_file: ./environments/${APP_ENV}/.env
+        restart: unless-stopped
+        volumes:
+            - ./environments:/app/environments
+            - ./messages:/app/messages
+            - ./static:/app/static
+        environment: 
+            - "DATABASE_HOST=${MYSQL_HOST}"
+            - "DATABASE_NAME=${MYSQL_NAME}"
+            - "DATABASE_USERNAME=${MYSQL_USERNAME}"
+            - "DATABASE_PASSWORD=${MYSQL_PASSWORD}"
+            - "DATABASE_PORT=${MYSQL_PORT}"
+        ports:
+            - ${APP_PORT}:8000
+        networks:
+            - public
+            - private
+    database:
+        image: mysql:${MYSQL_VERSION}
+        restart: unless-stopped
+        volumes:
+            - ${MYSQL_VOLUME}:/var/lib/mysql
+        environment:
+            - "MYSQL_DATABASE=${MYSQL_NAME}"
+            - "MYSQL_USER=${MYSQL_USERNAME}"
+            - "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
+            - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
+        ports:
+            - ${MYSQL_PORT}:3306
+        networks:
+            - private
+
+networks:
+    public:
+        driver: bridge
+    private:
+        driver: bridge
