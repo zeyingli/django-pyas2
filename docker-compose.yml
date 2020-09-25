@@ -9,12 +9,12 @@ services:
             - ./environments:/app/environments
             - ./messages:/app/messages
             - ./static:/app/static
-        environment: 
-            - "DATABASE_HOST=${MYSQL_HOST}"
+        environment:
+            - "DATABASE_HOST=database"
             - "DATABASE_NAME=${MYSQL_NAME}"
             - "DATABASE_USERNAME=${MYSQL_USERNAME}"
             - "DATABASE_PASSWORD=${MYSQL_PASSWORD}"
-            - "DATABASE_PORT=${MYSQL_PORT}"
+            - "DATABASE_PORT=3306"
         ports:
             - ${APP_PORT}:8000
         networks:
@@ -37,6 +37,6 @@ services:
 
 networks:
     public:
-        driver: bridge
+        external: true
     private:
         driver: bridge
